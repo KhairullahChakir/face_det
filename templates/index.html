@@ -17,7 +17,6 @@
       --bg-color: #f0f2f5;
       --card-bg: #ffffff;
       --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
-      --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.15);
     }
     
     body {
@@ -27,7 +26,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1100px;
     }
 
     .header-section {
@@ -44,18 +43,6 @@
       margin-bottom: 25px;
       position: relative;
     }
-    
-    /* Input File Styling - Improved layout for file name */
-    .file-upload-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    .form-control-file {
-      padding: 10px 15px; 
-      border-radius: 8px;
-      border: 1px dashed #ccc;
-    }
 
     .card-title {
       color: var(--primary-color);
@@ -65,10 +52,78 @@
       margin-bottom: 10px;
     }
 
-    /* Webcam Styling */
+    /* Input File Styling */
+    .file-upload-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .form-control-file {
+      padding: 10px 15px; 
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    /* Image Preview Container */
+    #image-preview-container {
+        min-height: 200px;
+        background: #e9ecef;
+        border-radius: 8px;
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border: 1px solid #ddd;
+        position: relative;
+    }
+    #image-preview {
+        max-width: 100%;
+        max-height: 400px;
+        height: auto;
+        width: auto;
+        object-fit: contain;
+        display: none; 
+    }
+    .preview-placeholder {
+        color: #777;
+        padding: 20px;
+        text-align: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* Buttons */
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    
+    /* FIX: Custom green style for the webcam button */
+    #webcam-btn {
+      background-color: #28a745; /* Dark Green */
+      border-color: #28a745;
+      color: white;
+    }
+
+    /* Shared button styles */
+    .btn-primary, #webcam-btn {
+      border-radius: 50px;
+      padding: 12px 30px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      font-size: 1.1rem;
+    }
+    
+    /* Webcam specific styles */
     .webcam-container {
       position: relative;
-      background: #333; /* Darker background for video area */
+      background: #333;
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 15px;
@@ -77,8 +132,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 2rem;
     }
     
     video {
@@ -88,77 +141,6 @@
       object-fit: cover;
     }
     
-    /* Buttons */
-    .btn-primary, .btn-success {
-      border-radius: 50px;
-      padding: 12px 30px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      font-size: 1.1rem;
-    }
-    
-    .btn-primary {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-    }
-    .btn-success {
-      background-color: var(--secondary-color);
-      border-color: var(--secondary-color);
-    }
-
-    /* Loading Spinner Overlay */
-    .loading-overlay {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.9);
-      z-index: 10;
-      border-radius: 16px;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      color: var(--primary-color);
-      font-weight: 600;
-      text-align: center;
-    }
-    
-    .card.processing .loading-overlay {
-      display: flex;
-    }
-    
-    /* Result Panel */
-    #result {
-      display: none;
-      border: 1px solid var(--secondary-color);
-      background-color: #fff0f5;
-    }
-
-    .prediction-item {
-      padding: 10px 0;
-      font-size: 1.1rem;
-      border-bottom: 1px dotted #e0e0e0;
-      display: flex;
-      justify-content: space-between; /* Ensures label and value are justified */
-    }
-
-    .prediction-item:last-child {
-      border-bottom: none;
-    }
-    
-    .prediction-label {
-      font-weight: 500;
-      color: #666;
-    }
-    .prediction-value {
-      font-weight: 700;
-      color: var(--primary-color);
-      text-align: right;
-    }
-
-    /* Placeholder text for inactive video */
     .video-placeholder {
         position: absolute;
         top: 0;
@@ -173,15 +155,23 @@
         font-size: 1.2rem;
         z-index: 1;
     }
-    .video-placeholder i {
-        font-size: 3rem;
-        margin-bottom: 10px;
+    
+    /* Results styling */
+    #result {
+      display: none;
+      border: 1px solid var(--primary-color); 
+      background-color: #e8f0fe;
     }
-    #video:not([srcObject]) + .video-placeholder {
-        display: flex;
+    .prediction-item {
+      padding: 5px 0;
+      font-size: 1rem;
+      border-bottom: 1px dotted #ccc;
+      display: flex;
+      justify-content: space-between;
     }
-    #video[srcObject] + .video-placeholder {
-        display: none;
+    
+    .prediction-item:last-child {
+      border-bottom: none;
     }
   </style>
 </head>
@@ -195,7 +185,7 @@
 
   <div class="row">
     
-    <!-- Upload Image Card -->
+    <!-- File Upload Card -->
     <div class="col-lg-6 col-md-12">
       <div class="card" id="upload-card">
         <div class="loading-overlay">
@@ -206,11 +196,20 @@
           <h4 class="card-title"><i class="fas fa-image me-2"></i> File Upload Detection</h4>
           <p class="text-muted small">Tip: For best accuracy, use clear, front-facing images (JPG/PNG) with good, even lighting.</p>
           
-          <div class="mb-4 file-upload-wrapper">
-            <input type="file" id="file-upload" class="form-control form-control-file" accept="image/*">
+          <div class="mb-3 file-upload-wrapper">
+            <input type="file" id="file-upload" class="form-control form-control-file" accept="image/*" onchange="previewImage(event)">
             <button class="btn btn-primary w-100" id="upload-btn" onclick="uploadImage()">
-                <i class="fas fa-cloud-upload-alt me-2"></i> Submit Image
+                <i class="fas fa-cloud-upload-alt me-2"></i> Submit Image for Analysis
             </button>
+          </div>
+
+          <!-- Image Preview Area -->
+          <div id="image-preview-container">
+            <img id="image-preview" src="#" alt="Image Preview">
+            <div class="preview-placeholder">
+                <i class="fas fa-file-upload fa-3x mb-2"></i>
+                <p>Upload an image to see the preview here.</p>
+            </div>
           </div>
           
         </div>
@@ -239,7 +238,8 @@
           <!-- Webcam Status Indicator -->
           <div id="webcam-status" class="text-center mb-3 fw-bold"></div>
 
-          <button id="webcam-btn" class="btn btn-success w-100" onclick="startWebcam()">
+          <!-- Changed class to use the specific #webcam-btn style -->
+          <button id="webcam-btn" class="btn w-100" onclick="startWebcam()">
             <i class="fas fa-camera me-2"></i> Start Webcam
           </button>
         </div>
@@ -250,7 +250,7 @@
   <!-- Results Panel -->
   <div id="result" class="card mt-4 mb-5">
     <div class="card-body">
-      <h4 class="card-title text-secondary"><i class="fas fa-chart-bar me-2"></i> Analysis Results</h4>
+      <h4 class="card-title text-primary"><i class="fas fa-chart-bar me-2"></i> Analysis Results</h4>
       <div id="prediction-result" class="row">
         <div class="col-12 text-center py-3 text-muted">Awaiting analysis results...</div>
       </div>
@@ -260,40 +260,60 @@
 
 <!-- jQuery (Used for existing AJAX logic) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.10.0/dist/tf.min.js"></script> 
 
 <script>
-  // --- CORE LOGIC VARIABLES ---
+  // --- CORE LOGIC VARIABLES & UI ELEMENTS ---
   let webcamStarted = false;
   let video = document.getElementById('video');
   let snapshotInterval = null;
   const WEBCAM_INTERVAL_MS = 2000; 
 
-  // --- UI ELEMENTS ---
   const resultElement = document.getElementById('result');
   const predictionResultElement = document.getElementById('prediction-result');
   const uploadCard = document.getElementById('upload-card');
-  const webcamCard = document.getElementById('webcam-card');
   const uploadBtn = document.getElementById('upload-btn');
+  const imagePreview = document.getElementById('image-preview');
+  const previewPlaceholder = document.querySelector('.preview-placeholder');
+  const webcamCard = document.getElementById('webcam-card');
   const webcamBtn = document.getElementById('webcam-btn');
   const webcamStatusElement = document.getElementById('webcam-status');
   
-  // --- Helper function for error handling based on HTTP status ---
+  // --- Helper function for error handling ---
   function getAjaxErrorMessage(jqXHR) {
-      // Status 0 often means connection refused (server down)
       if (jqXHR.status === 0 || jqXHR.statusText === 'error' && jqXHR.readyState === 0) {
           return "API Connection Failed. Please ensure the backend server is running correctly.";
       } 
-      // Status 4xx or 5xx means the server is running but failed to process the request
       else if (jqXHR.status >= 400 && jqXHR.status < 600) {
-          // This covers the case where the Python script crashes trying to analyze a non-face image
-          return "Image Processing Error. No face was detected, or the backend failed to analyze the file.";
+          try {
+              const response = JSON.parse(jqXHR.responseText);
+              if (response.error) { return response.error; }
+          } catch (e) {}
+          return "Image Processing Error. The backend failed to analyze the file.";
       }
       return "An unexpected error occurred during analysis.";
   }
 
+  // --- Image Preview Logic ---
+  function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+            previewPlaceholder.style.display = 'none';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        imagePreview.style.display = 'none';
+        imagePreview.src = '#';
+        previewPlaceholder.style.display = 'flex';
+    }
+    resultElement.style.display = 'none';
+    predictionResultElement.innerHTML = `<div class="col-12 text-center py-3 text-muted">Awaiting analysis results...</div>`;
+  }
 
-  // --- 1. UPLOAD LOGIC ---
+  // --- UPLOAD LOGIC ---
   function uploadImage() {
     let fileInput = document.getElementById('file-upload');
     if (fileInput.files.length === 0) {
@@ -301,9 +321,9 @@
       return;
     }
     
-    // UI: Show loading state
     uploadCard.classList.add('processing');
     uploadBtn.disabled = true;
+    resultElement.style.display = 'none';
 
     let formData = new FormData();
     formData.append('file', fileInput.files[0]);
@@ -315,25 +335,21 @@
       contentType: false,
       processData: false,
       success: function (data) {
-        // UI: Hide loading state
         uploadCard.classList.remove('processing');
         uploadBtn.disabled = false;
-        displayResults(data);
+        displayResults(data); 
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        // UI: Hide loading state
         uploadCard.classList.remove('processing');
         uploadBtn.disabled = false;
         
         console.error("Error in uploading the image:", textStatus, errorThrown, jqXHR);
-        
-        // Use the smart error message based on the HTTP status
         displayError(getAjaxErrorMessage(jqXHR));
       }
     });
   }
 
-  // --- 2. WEBCAM START/STOP LOGIC (Unchanged) ---
+  // --- WEBCAM LOGIC ---
   function startWebcam() {
     if (!webcamStarted) {
       navigator.mediaDevices.getUserMedia({ video: true })
@@ -348,6 +364,8 @@
           }, WEBCAM_INTERVAL_MS);
           
         }).catch(function (err) {
+          // Failure to get camera access
+          console.error("Webcam access error:", err);
           alert("Webcam not accessible. Please ensure you grant permission and try refreshing the page.");
           webcamBtn.innerHTML = '<i class="fas fa-camera me-2"></i> Start Webcam';
           webcamStatusElement.innerHTML = '<span class="text-danger"><i class="fas fa-times-circle me-2"></i> Webcam Access Denied.</span>';
@@ -377,7 +395,6 @@
   }
 
 
-  // --- 3. WEBCAM SNAPSHOT LOGIC ---
   function takeWebcamSnapshot(stream) {
     
     webcamCard.classList.add('processing');
@@ -407,57 +424,68 @@
         },
         error: function(jqXHR, textStatus, errorThrown) {
           webcamCard.classList.remove('processing');
-          console.error('Error in webcam detection:', textStatus, errorThrown);
           
           if (webcamStarted) {
             webcamStatusElement.innerHTML = '<span class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i> Scan Failed. Retrying...</span>';
           }
-          
-          // Use the smart error message based on the HTTP status
           displayError(getAjaxErrorMessage(jqXHR));
         }
       });
     }, 'image/jpeg', 0.95);
   }
+  
 
-
-  // --- 4. DISPLAY RESULTS & ERROR HANDLING ---
+  // --- DISPLAY RESULTS (Multi-Face) ---
   function displayResults(data) {
     resultElement.style.display = 'block';
     
-    const isValidData = data && (data.gender !== undefined || data.age !== undefined) && data.gender !== null;
+    if (data && data.error) {
+        displayError(data.error);
+        return;
+    }
     
-    // Check if the server returned data, but analysis failed (e.g., building image)
-    // NOTE: If the backend returns HTTP 200 but sends data.error, this handles it.
-    if (!isValidData || data.error || (data.gender === 'N/A' && data.age === 'N/A')) {
-        const errorMessage = data.error || "No human face detected in the image. Please try a clearer picture.";
-        displayError(errorMessage);
+    if (!Array.isArray(data) || data.length < 2) {
+        displayError("No human face detected in the image. Please try a clearer picture.");
         return;
     }
 
-    // Successful display
-    predictionResultElement.innerHTML = `
-      <div class="col-md-6">
-        <div class="prediction-item">
-          <span class="prediction-label">Gender:</span> 
-          <span class="prediction-value">${data.gender || 'N/A'}</span>
+    const metadata = data[0];
+    const faceResults = data.slice(1);
+    
+    let htmlContent = `
+        <div class="col-12 mb-3">
+            <h5 class="text-primary fw-bold">Summary: ${metadata.face_count} Faces Detected</h5>
+            <p class="small text-muted">Total Processing Time: ${metadata.total_processing_time_s} s</p>
         </div>
-        <div class="prediction-item">
-          <span class="prediction-label">Age Prediction:</span> 
-          <span class="prediction-value">${data.age || 'N/A'} Years</span>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="prediction-item">
-          <span class="prediction-label">Distance Estimate:</span> 
-          <span class="prediction-value">${data.distance || 'N/A'} cm</span>
-        </div>
-        <div class="prediction-item">
-          <span class="prediction-label">Processing Time:</span> 
-          <span class="prediction-value">${data.time || 'N/A'} s</span>
-        </div>
-      </div>
     `;
+
+    faceResults.forEach((face, index) => {
+        htmlContent += `
+        <div class="col-lg-6 col-md-6 mb-4">
+            <div class="card p-3 shadow-sm border-0 bg-light">
+                <h6><i class="fas fa-user me-2 text-secondary"></i> Person ${index + 1}</h6>
+                <div class="prediction-item">
+                    <span class="prediction-label">Gender:</span> 
+                    <span class="prediction-value">${face.gender || 'N/A'}</span>
+                </div>
+                <div class="prediction-item">
+                    <span class="prediction-label">Age Range:</span> 
+                    <span class="prediction-value">${face.age.replace(/[()]/g, '') || 'N/A'} years</span>
+                </div>
+                <div class="prediction-item">
+                    <span class="prediction-label">Distance Estimate:</span> 
+                    <span class="prediction-value">${face.distance ? face.distance.toFixed(1) + ' cm' : 'N/A'}</span>
+                </div>
+                <div class="prediction-item">
+                    <span class="prediction-label">Analysis Time:</span> 
+                    <span class="prediction-value">${face.analysis_time_s || 'N/A'} s</span>
+                </div>
+            </div>
+        </div>
+        `;
+    });
+    
+    predictionResultElement.innerHTML = htmlContent;
   }
   
   function displayError(message) {
@@ -469,7 +497,6 @@
     `;
   }
   
-  // UX Initialization
   document.addEventListener('DOMContentLoaded', () => {
     video.muted = true;
   });
