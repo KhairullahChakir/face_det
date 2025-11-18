@@ -1,0 +1,4 @@
+Image,Predicted Gender,True Gender,Age,Distance (cm),Detection Time (s),Correct Gender?
+female1.jpg,Female,Male,(25-32),46.3,0.082,No
+female2.jpg,Female,Male,(8-12),50.5,0.037,No
+female4.jpg,Female,Male,(38-43),52.6,0.033,No
