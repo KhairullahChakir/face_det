@@ -1,103 +1,88 @@
-# Gender-and-Age-Detection   <img alt="GitHub" src="https://img.shields.io/github/license/smahesh29/Gender-and-Age-Detection">
+# Deep Learning Age & Gender Detection
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-DNN-green.svg)](https://opencv.org/)
 
-<h2>Objective :</h2>
-<p>To build a gender and age detector that can approximately guess the gender and age of the person (face) in a picture or through webcam.</p>
+## 📖 Overview
+The **Age and Gender Detection** project uses Deep Learning and Computer Vision to accurately identify the gender and approximate age of a person from a single image or a live webcam feed. 
 
-<h2>About the Project :</h2>
-<p>In this Python Project, I had used Deep Learning to accurately identify the gender and age of a person from a single image of a face. I used the models trained by <a href="https://talhassner.github.io/home/projects/Adience/Adience-data.html">Tal Hassner and Gil Levi</a>. The predicted gender may be one of ‘Male’ and ‘Female’, and the predicted age may be one of the following ranges- (0 – 2), (4 – 6), (8 – 12), (15 – 20), (25 – 32), (38 – 43), (48 – 53), (60 – 100) (8 nodes in the final softmax layer). It is very difficult to accurately guess an exact age from a single image because of factors like makeup, lighting, obstructions, and facial expressions. And so, I made this a classification problem instead of making it one of regression.</p>
+It leverages pre-trained models by [Tal Hassner and Gil Levi](https://talhassner.github.io/home/projects/Adience/Adience-data.html) that were trained on the Adience dataset. Because estimating exact age from a single photo is highly subjective (due to lighting, makeup, and expression), this model treats age estimation as a **classification problem** predicting an age range bucket (e.g., `25-32 years`).
 
-<h2>Dataset :</h2>
-<p>For this python project, I had used the Adience dataset; the dataset is available in the public domain and you can find it <a href="https://www.kaggle.com/ttungl/adience-benchmark-gender-and-age-classification">here</a>. This dataset serves as a benchmark for face photos and is inclusive of various real-world imaging conditions like noise, lighting, pose, and appearance. The images have been collected from Flickr albums and distributed under the Creative Commons (CC) license. It has a total of 26,580 photos of 2,284 subjects in eight age ranges (as mentioned above) and is about 1GB in size. The models I used had been trained on this dataset.</p>
+## ✨ Features
+* **Image Inference**: Pass any image file to quickly get predictions.
+* **Live Webcam Inference**: Process real-time video frames directly from your local webcam.
+* **OpenCV DNN Module**: Fast and lightweight execution using OpenCV's deep neural network module.
+* **Pre-trained Caffe Models**: Ready-to-use weights included.
 
-<h2>Additional Python Libraries Required :</h2>
-<ul>
-  <li>OpenCV</li>
-  
-       pip install opencv-python
-</ul>
-<ul>
- <li>argparse</li>
-  
-       pip install argparse
-</ul>
+## 🚀 Technologies Used
+* **Python 3**
+* **OpenCV** (cv2)
+* **Caffe Models** (for Age & Gender classification)
+* **TensorFlow pb Models** (for Face detection)
+* **Flask** (via `app.py` for web-based inference)
 
-<h2>The contents of this Project :</h2>
-<ul>
-  <li>opencv_face_detector.pbtxt</li>
-  <li>opencv_face_detector_uint8.pb</li>
-  <li>age_deploy.prototxt</li>
-  <li>age_net.caffemodel</li>
-  <li>gender_deploy.prototxt</li>
-  <li>gender_net.caffemodel</li>
-  <li>a few pictures to try the project on</li>
-  <li>detect.py</li>
- </ul>
- <p>For face detection, we have a .pb file- this is a protobuf file (protocol buffer); it holds the graph definition and the trained weights of the model. We can use this to run the trained model. And while a .pb file holds the protobuf in binary format, one with the .pbtxt extension holds it in text format. These are TensorFlow files. For age and gender, the .prototxt files describe the network configuration and the .caffemodel file defines the internal states of the parameters of the layers.</p>
- 
- <h2>Usage :</h2>
- <ul>
-  <li>Download my Repository</li>
-  <li>Open your Command Prompt or Terminal and change directory to the folder where all the files are present.</li>
-  <li><b>Detecting Gender and Age of face in Image</b> Use Command :</li>
-  
-      python detect.py --image <image_name>
-</ul>
-  <p><b>Note: </b>The Image should be present in same folder where all the files are present</p> 
-<ul>
-  <li><b>Detecting Gender and Age of face through webcam</b> Use Command :</li>
-  
-      python detect.py
-</ul>
-<ul>
-  <li>Press <b>Ctrl + C</b> to stop the program execution.</li>
-</ul>
+## 📁 Project Structure
+```text
+face_det/
+├── samples/                       # Sample images for testing
+├── detect.py                      # CLI script for image and webcam detection
+├── app.py                         # Flask web application for browser-based detection
+├── opencv_face_detector.pbtxt     # Face detection network configuration
+├── opencv_face_detector_uint8.pb  # Face detection weights
+├── age_deploy.prototxt            # Age prediction network configuration
+├── age_net.caffemodel             # Age prediction weights
+├── gender_deploy.prototxt         # Gender prediction network configuration
+├── gender_net.caffemodel          # Gender prediction weights
+├── LICENSE                        # MIT License
+└── README.md                      # Project documentation
+```
 
-# Working:
-[![Watch the video](https://img.youtube.com/vi/ReeccRD21EU/0.jpg)](https://youtu.be/ReeccRD21EU)
+## 📸 Screenshots
+*(Coming soon - Placeholder for sample face detection outputs)*
 
-<h2>Examples :</h2>
-<p><b>NOTE:- I downloaded the images from Google,if you have any query or problem i can remove them, i just used it for Educational purpose.</b></p>
+## 🛠️ Installation & Setup
 
-    >python detect.py --image girl1.jpg
-    Gender: Female
-    Age: 25-32 years
-    
-<img src="Example/Detecting age and gender girl1.png">
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/KhairullahChakir/face_det.git
+   cd face_det
+   ```
 
-    >python detect.py --image girl2.jpg
-    Gender: Female
-    Age: 8-12 years
-    
-<img src="Example/Detecting age and gender girl2.png">
+2. **Install dependencies**:
+   ```bash
+   pip install opencv-python argparse flask
+   ```
+   *(Note: A virtual environment is recommended)*
 
-    >python detect.py --image kid1.jpg
-    Gender: Male
-    Age: 4-6 years    
-    
-<img src="Example/Detecting age and gender kid1.png">
+## 💻 Usage
 
-    >python detect.py --image kid2.jpg
-    Gender: Female
-    Age: 4-6 years  
-    
-<img src="Example/Detecting age and gender kid2.png">
+### 1. Run on a Static Image
+Place your image inside the project folder (or in the `samples/` directory) and run:
+```bash
+python detect.py --image samples/female10.jpg
+```
 
-    >python detect.py --image man1.jpg
-    Gender: Male
-    Age: 38-43 years
-    
-<img src="Example/Detecting age and gender man1.png">
+### 2. Run on Live Webcam
+Simply execute the script without arguments to automatically open your webcam feed:
+```bash
+python detect.py
+```
+*Press **Ctrl + C** in the terminal to stop execution.*
 
-    >python detect.py --image man2.jpg
-    Gender: Male
-    Age: 25-32 years
-    
-<img src="Example/Detecting age and gender man2.png">
+### 3. Run Web Interface (Flask)
+```bash
+python app.py
+```
+Navigate to `http://127.0.0.1:5000` in your web browser to upload images via the web interface.
 
-    >python detect.py --image woman1.jpg
-    Gender: Female
-    Age: 38-43 years
-    
-<img src="Example/Detecting age and gender woman1.png">
-              
+## 🔮 Future Improvements
+* Improve accuracy by upgrading from Caffe models to modern PyTorch/TensorFlow architectures (e.g., EfficientNet).
+* Dockerize the Flask application for easier deployment.
+* Add bounding box tracking across video frames to reduce inference jitter on live video.
+
+## 🤝 Contributing
+Contributions are welcome! Please fork this repository and submit a Pull Request.
+
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
